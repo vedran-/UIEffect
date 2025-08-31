@@ -63,7 +63,7 @@ namespace Coffee.UIEffects
             var oldHash = _effectMaterialHash;
             _effectMaterialHash = GetMaterialHash(baseMaterial);
             var modifiedMaterial = baseMaterial;
-            if (_effectMaterialHash.isValid)
+            if (_effectMaterialHash.IsValid())
             {
                 modifiedMaterial = MaterialCache.Register(baseMaterial, _effectMaterialHash, ModifyMaterial, graphic);
             }
