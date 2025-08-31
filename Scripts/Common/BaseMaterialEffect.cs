@@ -96,7 +96,10 @@ namespace Coffee.UIEffects
 
             // Add variant name
             s_StringBuilder.Length = 0;
-            s_StringBuilder.Append(Path.GetFileName(newMaterial.shader.name));
+            var shaderName = newMaterial.shader.name;
+            var lastSlash = shaderName.LastIndexOf('/');
+            s_StringBuilder.Append(lastSlash == -1 ? shaderName : shaderName.Substring(lastSlash + 1));
+            //s_StringBuilder.Append(Path.GetFileName(newMaterial.shader.name));
             foreach (var keyword in keywords)
             {
                 s_StringBuilder.Append("-");

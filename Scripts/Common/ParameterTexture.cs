@@ -182,7 +182,24 @@ namespace Coffee.UIEffects
             if (_needUpload && _texture)
             {
                 _needUpload = false;
+                // Unity Playworks compatibility: Use SetPixels32 instead of LoadRawTextureData
+#if false
                 _texture.LoadRawTextureData(_data);
+#else
+                // Fallback for Unity Playworks - convert byte array to Color32 array
+                var colors = new Color32[_instanceLimit * (_channels / 4)];
+                for( int i = 0; i < colors.Length; i++ )
+                {
+                    int dataIndex = i * 4;
+                    colors[i] = new Color32(
+                        dataIndex < _data.Length ? _data[dataIndex] : (byte)0,
+                        dataIndex + 1 < _data.Length ? _data[dataIndex + 1] : (byte)0,
+                        dataIndex + 2 < _data.Length ? _data[dataIndex + 2] : (byte)0,
+                        dataIndex + 3 < _data.Length ? _data[dataIndex + 3] : (byte)0
+                    );
+                }
+                _texture.SetPixels32( colors );
+#endif
                 _texture.Apply(false, false);
             }
         }
