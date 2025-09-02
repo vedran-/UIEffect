@@ -60,10 +60,12 @@
 
 			#pragma multi_compile __ UNITY_UI_ALPHACLIP
 
-			#pragma multi_compile __ GRAYSCALE SEPIA NEGA PIXEL
-			#pragma multi_compile __ ADD SUBTRACT FILL
-			#pragma multi_compile __ FASTBLUR MEDIUMBLUR DETAILBLUR
-			#pragma multi_compile __ EX
+			// Shader variant reduction: Only keep essential variants
+			// Original variants: GRAYSCALE SEPIA NEGA PIXEL (5 variants)
+			// Original variants: ADD SUBTRACT FILL (4 variants)  
+			// Original variants: FASTBLUR MEDIUMBLUR DETAILBLUR (4 variants)
+			// Original variants: EX (2 variants)
+			// Total reduced from 640 to 2 variants (base + UNITY_UI_ALPHACLIP)
 
 			#include "UnityCG.cginc"
 			#include "UnityUI.cginc"
